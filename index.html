@@ -321,414 +321,631 @@
         .clean-btn.active-no {
             background: #E74C3C;
         }
+
+        /* Stats Page Styles */
+        .stats-container {
+            padding: 20px;
+        }
+
+        .stats-card {
+            background: rgba(52, 73, 94, 0.3);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            height: 200px;
+            margin: 20px 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            gap: 5px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, #3498DB, #2980B9);
+            border-radius: 5px 5px 0 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .chart-bar:hover {
+            opacity: 0.8;
+        }
+
+        .chart-label {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            opacity: 0.7;
+        }
+
+        /* Settings Page Styles */
+        .settings-container {
+            padding: 20px;
+        }
+
+        .settings-section {
+            background: rgba(52, 73, 94, 0.3);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: #27AE60;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active::after {
+            left: 27px;
+        }
+
+        .export-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #3498DB, #2980B9);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>⚡ Performance Track</h1>
-            <p>Streak: <span class="streak" id="streak">0</span> days 🔥</p>
-            
-            <div class="date-nav">
-                <button class="date-btn" onclick="changeDate(-1)">←</button>
-                <div>
-                    <div id="currentDate" style="font-weight: bold;"></div>
-                    <div id="dateLabel" style="font-size: 12px; opacity: 0.7;"></div>
-                </div>
-                <button class="date-btn" onclick="changeDate(1)">→</button>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number" id="medStats">0/11</div>
-                    <div class="stat-label">💊 Medications</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="suppStats">0/8</div>
-                    <div class="stat-label">🌿 Supplements</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Navigation -->
-        <div class="nav-tabs">
-            <div class="nav-tab active" onclick="showSection('medications')">💊 Meds</div>
-            <div class="nav-tab" onclick="showSection('supplements')">🌿 Supps</div>
-            <div class="nav-tab" onclick="showSection('lifestyle')">💪 Life</div>
-            <div class="nav-tab" onclick="showSection('nutrition')">🍽️ Food</div>
-            <div class="nav-tab" onclick="showSection('mood')">🧠 Mood</div>
-        </div>
-
-        <!-- Medications Section -->
-        <div id="medications" class="section active">
-            <h2 style="text-align: center; margin-bottom: 20px;">💊 Daily Medications</h2>
-            
-            <div class="card" onclick="toggleItem('medications', 'atomoxetina_morning')" data-item="atomoxetina_morning">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Atomoxetina 10mg</h3>
-                        <p>🌅 Morning</p>
+        <!-- Main Page -->
+        <div id="mainPage" class="page active">
+            <!-- Header -->
+            <div class="header">
+                <h1>⚡ Performance Track</h1>
+                <p>Streak: <span class="streak" id="streak">0</span> days 🔥</p>
+                
+                <div class="date-nav">
+                    <button class="date-btn" onclick="changeDate(-1)">←</button>
+                    <div>
+                        <div id="currentDate" style="font-weight: bold;"></div>
+                        <div id="dateLabel" style="font-size: 12px; opacity: 0.7;"></div>
                     </div>
-                    <div class="check-circle">○</div>
+                    <button class="date-btn" onclick="changeDate(1)">→</button>
                 </div>
-            </div>
 
-            <div class="card" onclick="toggleItem('medications', 'aripiprazol_morning')" data-item="aripiprazol_morning">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Aripiprazol 2mg</h3>
-                        <p>🌅 Morning</p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="medStats">0/11</div>
+                        <div class="stat-label">💊 Medications</div>
                     </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('medications', 'piracetam_morning')" data-item="piracetam_morning">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Piracetam 400mg</h3>
-                        <p>🌅 Morning</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('medications', 'escitalopram_morning')" data-item="escitalopram_morning">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Escitalopram 4mg</h3>
-                        <p>🌅 Morning</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('medications', 'vitaminD3')" data-item="vitaminD3">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Vitamin D3 + K2</h3>
-                        <p>🌅 Morning</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('medications', 'omega3')" data-item="omega3">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Omega 3</h3>
-                        <p>🍽️ With meal</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('medications', 'atomoxetina_evening')" data-item="atomoxetina_evening">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Atomoxetina 10mg</h3>
-                        <p>🌆 Evening</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('medications', 'aripiprazol_evening')" data-item="aripiprazol_evening">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Aripiprazol 2mg</h3>
-                        <p>🌆 Evening</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('medications', 'piracetam_evening')" data-item="piracetam_evening">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Piracetam 400mg</h3>
-                        <p>🌆 Evening</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('medications', 'escitalopram_evening')" data-item="escitalopram_evening">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Escitalopram 4mg</h3>
-                        <p>🌆 Evening</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('medications', 'melatonin')" data-item="melatonin">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Melatonin 5mg</h3>
-                        <p>🌙 Night</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Supplements Section -->
-        <div id="supplements" class="section">
-            <h2 style="text-align: center; margin-bottom: 20px;">🌿 New Supplements</h2>
-            
-            <div class="card" onclick="toggleItem('supplements', 'caffeine')" data-item="caffeine">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Caffeine 100-200mg</h3>
-                        <p>🌅 Morning</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('supplements', 'ltheanine')" data-item="ltheanine">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>L-Theanine 200mg</h3>
-                        <p>🌅 With caffeine</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('supplements', 'creatine')" data-item="creatine">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Creatine 5g</h3>
-                        <p>🌅 Morning</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('supplements', 'lionsMane')" data-item="lionsMane">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Lion's Mane 500-1000mg</h3>
-                        <p>🌅 Morning</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('supplements', 'rhodiola')" data-item="rhodiola">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Rhodiola 300-400mg</h3>
-                        <p>🌆 Afternoon</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('supplements', 'bcomplex')" data-item="bcomplex">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>B-Complex</h3>
-                        <p>🌆 Afternoon</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('supplements', 'magnesium')" data-item="magnesium">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Magnesium 400-600mg</h3>
-                        <p>🌆 Evening</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('supplements', 'ashwagandha')" data-item="ashwagandha">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>Ashwagandha 300-500mg</h3>
-                        <p>🌆 Evening</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Lifestyle Section -->
-        <div id="lifestyle" class="section">
-            <h2 style="text-align: center; margin-bottom: 20px;">💪 Lifestyle Tracking</h2>
-            
-            <div class="input-group">
-                <label>⚖️ Weight (kg)</label>
-                <input type="number" step="0.1" id="weight" placeholder="93.0" onchange="saveLifestyle('weight', this.value)">
-            </div>
-
-            <div class="input-group">
-                <label>😴 Sleep Hours</label>
-                <input type="number" step="0.5" id="sleepHours" placeholder="8" onchange="saveLifestyle('sleepHours', this.value)">
-            </div>
-
-            <div class="slider-container">
-                <div class="slider-header">
-                    <span>🌙 Sleep Quality</span>
-                    <span><strong id="sleepQualityValue">5</strong>/10</span>
-                </div>
-                <input type="range" min="1" max="10" value="5" class="slider" id="sleepQuality" oninput="updateSlider('sleepQuality', this.value)">
-            </div>
-
-            <div class="input-group">
-                <label>💧 Water Intake (glasses)</label>
-                <div class="water-grid" id="waterGrid">
-                    <button class="water-btn" onclick="setWater(1)">1</button>
-                    <button class="water-btn" onclick="setWater(2)">2</button>
-                    <button class="water-btn" onclick="setWater(3)">3</button>
-                    <button class="water-btn" onclick="setWater(4)">4</button>
-                    <button class="water-btn" onclick="setWater(5)">5</button>
-                    <button class="water-btn" onclick="setWater(6)">6</button>
-                    <button class="water-btn" onclick="setWater(7)">7</button>
-                    <button class="water-btn" onclick="setWater(8)">8</button>
-                    <button class="water-btn" onclick="setWater(9)">9</button>
-                    <button class="water-btn" onclick="setWater(10)">10</button>
-                </div>
-            </div>
-
-            <div class="card" onclick="toggleItem('lifestyle', 'prayer')" data-item="prayer">
-                <div class="card-content">
-                    <div class="card-info">
-                        <h3>🙏 Prayer Today</h3>
-                        <p>Daily spiritual practice</p>
-                    </div>
-                    <div class="check-circle">○</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Nutrition Section -->
-        <div id="nutrition" class="section">
-            <h2 style="text-align: center; margin-bottom: 20px;">🍽️ Nutrition & Fasting</h2>
-            
-            <div class="nutrition-section">
-                <h3 style="margin-bottom: 15px;">⏰ Intermittent Fasting</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div class="input-group">
-                        <label>First Meal</label>
-                        <input type="time" id="firstMeal" onchange="saveNutrition('firstMeal', this.value); updateFasting()">
-                    </div>
-                    <div class="input-group">
-                        <label>Last Meal</label>
-                        <input type="time" id="lastMeal" onchange="saveNutrition('lastMeal', this.value); updateFasting()">
+                    <div class="stat-card">
+                        <div class="stat-number" id="suppStats">0/8</div>
+                        <div class="stat-label">🌿 Supplements</div>
                     </div>
                 </div>
-                <div id="fastingWindow" style="text-align: center; margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px; display: none;">
-                    <div style="font-size: 14px; opacity: 0.8;">Eating Window</div>
-                    <div style="font-size: 18px; font-weight: bold;" id="fastingText"></div>
-                </div>
             </div>
 
-            <div class="nutrition-section">
-                <h3 style="margin-bottom: 15px;">🥗 Diet Quality</h3>
-                <div class="clean-eating-buttons">
-                    <span>Clean Eating Day</span>
-                    <div style="display: flex; gap: 10px;">
-                        <button onclick="setCleanEating(true)" id="cleanYes" class="clean-btn">✅ Yes</button>
-                        <button onclick="setCleanEating(false)" id="cleanNo" class="clean-btn">❌ No</button>
-                    </div>
-                </div>
+            <!-- Navigation -->
+            <div class="nav-tabs">
+                <div class="nav-tab active" onclick="showSection('medications')">💊 Meds</div>
+                <div class="nav-tab" onclick="showSection('supplements')">🌿 Supps</div>
+                <div class="nav-tab" onclick="showSection('lifestyle')">💪 Life</div>
+                <div class="nav-tab" onclick="showSection('nutrition')">🍽️ Food</div>
+                <div class="nav-tab" onclick="showSection('mood')">🧠 Mood</div>
+            </div>
 
-                <div class="card" onclick="toggleItem('nutrition', 'junkFood')" data-item="junkFood">
+            <!-- Medications Section -->
+            <div id="medications" class="section active">
+                <h2 style="text-align: center; margin-bottom: 20px;">💊 Daily Medications</h2>
+                
+                <div class="card" onclick="toggleItem('medications', 'atomoxetina_morning')" data-item="atomoxetina_morning">
                     <div class="card-content">
                         <div class="card-info">
-                            <h3>🍟 Had Junk Food</h3>
-                            <p>Tap if you had junk food today</p>
+                            <h3>Atomoxetina 10mg</h3>
+                            <p>🌅 Morning</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('medications', 'aripiprazol_morning')" data-item="aripiprazol_morning">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Aripiprazol 2mg</h3>
+                            <p>🌅 Morning</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('medications', 'piracetam_morning')" data-item="piracetam_morning">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Piracetam 400mg</h3>
+                            <p>🌅 Morning</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('medications', 'escitalopram_morning')" data-item="escitalopram_morning">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Escitalopram 4mg</h3>
+                            <p>🌅 Morning</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('medications', 'vitaminD3')" data-item="vitaminD3">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Vitamin D3 + K2</h3>
+                            <p>🌅 Morning</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('medications', 'omega3')" data-item="omega3">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Omega 3</h3>
+                            <p>🍽️ With meal</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('medications', 'atomoxetina_evening')" data-item="atomoxetina_evening">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Atomoxetina 10mg</h3>
+                            <p>🌆 Evening</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('medications', 'aripiprazol_evening')" data-item="aripiprazol_evening">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Aripiprazol 2mg</h3>
+                            <p>🌆 Evening</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('medications', 'piracetam_evening')" data-item="piracetam_evening">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Piracetam 400mg</h3>
+                            <p>🌆 Evening</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('medications', 'escitalopram_evening')" data-item="escitalopram_evening">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Escitalopram 4mg</h3>
+                            <p>🌆 Evening</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('medications', 'melatonin')" data-item="melatonin">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Melatonin 5mg</h3>
+                            <p>🌙 Night</p>
                         </div>
                         <div class="check-circle">○</div>
                     </div>
                 </div>
             </div>
 
-            <div class="slider-container">
-                <div class="slider-header">
-                    <span>📊 Overall Diet Adherence</span>
-                    <span><strong id="dietAdherenceValue">5</strong>/10</span>
+            <!-- Supplements Section -->
+            <div id="supplements" class="section">
+                <h2 style="text-align: center; margin-bottom: 20px;">🌿 New Supplements</h2>
+                
+                <div class="card" onclick="toggleItem('supplements', 'caffeine')" data-item="caffeine">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Caffeine 100-200mg</h3>
+                            <p>🌅 Morning</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
                 </div>
-                <input type="range" min="1" max="10" value="5" class="slider" id="dietAdherence" oninput="updateSlider('dietAdherence', this.value)">
+
+                <div class="card" onclick="toggleItem('supplements', 'ltheanine')" data-item="ltheanine">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>L-Theanine 200mg</h3>
+                            <p>🌅 With caffeine</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('supplements', 'creatine')" data-item="creatine">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Creatine 5g</h3>
+                            <p>🌅 Morning</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('supplements', 'lionsMane')" data-item="lionsMane">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Lion's Mane 500-1000mg</h3>
+                            <p>🌅 Morning</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('supplements', 'rhodiola')" data-item="rhodiola">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Rhodiola 300-400mg</h3>
+                            <p>🌆 Afternoon</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('supplements', 'bcomplex')" data-item="bcomplex">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>B-Complex</h3>
+                            <p>🌆 Afternoon</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('supplements', 'magnesium')" data-item="magnesium">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Magnesium 400-600mg</h3>
+                            <p>🌆 Evening</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('supplements', 'ashwagandha')" data-item="ashwagandha">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>Ashwagandha 300-500mg</h3>
+                            <p>🌆 Evening</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lifestyle Section -->
+            <div id="lifestyle" class="section">
+                <h2 style="text-align: center; margin-bottom: 20px;">💪 Lifestyle Tracking</h2>
+                
+                <div class="input-group">
+                    <label>⚖️ Weight (kg)</label>
+                    <input type="number" step="0.1" id="weight" placeholder="93.0" onchange="saveLifestyle('weight', this.value)">
+                </div>
+
+                <div class="input-group">
+                    <label>😴 Sleep Hours</label>
+                    <input type="number" step="0.5" id="sleepHours" placeholder="8" onchange="saveLifestyle('sleepHours', this.value)">
+                </div>
+
+                <div class="slider-container">
+                    <div class="slider-header">
+                        <span>🌙 Sleep Quality</span>
+                        <span><strong id="sleepQualityValue">5</strong>/10</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="5" class="slider" id="sleepQuality" oninput="updateSlider('sleepQuality', this.value)">
+                </div>
+
+                <div class="input-group">
+                    <label>💧 Water Intake (glasses)</label>
+                    <div class="water-grid" id="waterGrid">
+                        <button class="water-btn" onclick="setWater(1)">1</button>
+                        <button class="water-btn" onclick="setWater(2)">2</button>
+                        <button class="water-btn" onclick="setWater(3)">3</button>
+                        <button class="water-btn" onclick="setWater(4)">4</button>
+                        <button class="water-btn" onclick="setWater(5)">5</button>
+                        <button class="water-btn" onclick="setWater(6)">6</button>
+                        <button class="water-btn" onclick="setWater(7)">7</button>
+                        <button class="water-btn" onclick="setWater(8)">8</button>
+                        <button class="water-btn" onclick="setWater(9)">9</button>
+                        <button class="water-btn" onclick="setWater(10)">10</button>
+                    </div>
+                </div>
+
+                <div class="card" onclick="toggleItem('lifestyle', 'prayer')" data-item="prayer">
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h3>🙏 Prayer Today</h3>
+                            <p>Daily spiritual practice</p>
+                        </div>
+                        <div class="check-circle">○</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nutrition Section -->
+            <div id="nutrition" class="section">
+                <h2 style="text-align: center; margin-bottom: 20px;">🍽️ Nutrition & Fasting</h2>
+                
+                <div class="nutrition-section">
+                    <h3 style="margin-bottom: 15px;">⏰ Intermittent Fasting</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="input-group">
+                            <label>First Meal</label>
+                            <input type="time" id="firstMeal" onchange="saveNutrition('firstMeal', this.value); updateFasting()">
+                        </div>
+                        <div class="input-group">
+                            <label>Last Meal</label>
+                            <input type="time" id="lastMeal" onchange="saveNutrition('lastMeal', this.value); updateFasting()">
+                        </div>
+                    </div>
+                    <div id="fastingWindow" style="text-align: center; margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px; display: none;">
+                        <div style="font-size: 14px; opacity: 0.8;">Eating Window</div>
+                        <div style="font-size: 18px; font-weight: bold;" id="fastingText"></div>
+                    </div>
+                </div>
+
+                <div class="nutrition-section">
+                    <h3 style="margin-bottom: 15px;">🥗 Diet Quality</h3>
+                    <div class="clean-eating-buttons">
+                        <span>Clean Eating Day</span>
+                        <div style="display: flex; gap: 10px;">
+                            <button onclick="setCleanEating(true)" id="cleanYes" class="clean-btn">✅ Yes</button>
+                            <button onclick="setCleanEating(false)" id="cleanNo" class="clean-btn">❌ No</button>
+                        </div>
+                    </div>
+
+                    <div class="card" onclick="toggleItem('nutrition', 'junkFood')" data-item="junkFood">
+                        <div class="card-content">
+                            <div class="card-info">
+                                <h3>🍟 Had Junk Food</h3>
+                                <p>Tap if you had junk food today</p>
+                            </div>
+                            <div class="check-circle">○</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slider-container">
+                    <div class="slider-header">
+                        <span>📊 Overall Diet Adherence</span>
+                        <span><strong id="dietAdherenceValue">5</strong>/10</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="5" class="slider" id="dietAdherence" oninput="updateSlider('dietAdherence', this.value)">
+                </div>
+            </div>
+
+            <!-- Mood Section -->
+            <div id="mood" class="section">
+                <h2 style="text-align: center; margin-bottom: 20px;">🧠 Daily Assessment</h2>
+                
+                <div class="slider-container">
+                    <div class="slider-header">
+                        <span>🎯 Focus & Attention</span>
+                        <span><strong id="focusValue">5</strong>/10</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="5" class="slider" id="focus" oninput="updateSlider('focus', this.value)">
+                </div>
+
+                <div class="slider-container">
+                    <div class="slider-header">
+                        <span>⚡ Energy Level</span>
+                        <span><strong id="energyValue">5</strong>/10</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="5" class="slider" id="energy" oninput="updateSlider('energy', this.value)">
+                </div>
+
+                <div class="slider-container">
+                    <div class="slider-header">
+                        <span>😊 Overall Mood</span>
+                        <span><strong id="moodValue">5</strong>/10</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="5" class="slider" id="mood" oninput="updateSlider('mood', this.value)">
+                </div>
+
+                <div class="slider-container">
+                    <div class="slider-header">
+                        <span>😰 Anxiety (lower is better)</span>
+                        <span><strong id="anxietyValue">5</strong>/10</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="5" class="slider" id="anxiety" oninput="updateSlider('anxiety', this.value)">
+                </div>
+
+                <div class="slider-container">
+                    <div class="slider-header">
+                        <span>🚀 Motivation</span>
+                        <span><strong id="motivationValue">5</strong>/10</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="5" class="slider" id="motivation" oninput="updateSlider('motivation', this.value)">
+                </div>
+
+                <div class="input-group">
+                    <label>💭 Daily Notes</label>
+                    <textarea id="dailyNotes" placeholder="How are you feeling? Any observations?" rows="4" onchange="saveData()"></textarea>
+                </div>
             </div>
         </div>
 
-        <!-- Mood Section -->
-        <div id="mood" class="section">
-            <h2 style="text-align: center; margin-bottom: 20px;">🧠 Daily Assessment</h2>
-            
-            <div class="slider-container">
-                <div class="slider-header">
-                    <span>🎯 Focus & Attention</span>
-                    <span><strong id="focusValue">5</strong>/10</span>
+        <!-- Stats Page -->
+        <div id="statsPage" class="page" style="display: none;">
+            <div class="stats-container">
+                <h1 style="text-align: center; margin-bottom: 30px;">📊 Your Progress</h1>
+                
+                <div class="stats-card">
+                    <h3>📈 7-Day Overview</h3>
+                    <div class="chart-container" id="weekChart"></div>
                 </div>
-                <input type="range" min="1" max="10" value="5" class="slider" id="focus" oninput="updateSlider('focus', this.value)">
-            </div>
 
-            <div class="slider-container">
-                <div class="slider-header">
-                    <span>⚡ Energy Level</span>
-                    <span><strong id="energyValue">5</strong>/10</span>
+                <div class="stats-card">
+                    <h3>🏆 Achievements</h3>
+                    <div style="margin-top: 15px;">
+                        <p>🔥 Current Streak: <span class="streak" id="statsStreak">0</span> days</p>
+                        <p style="margin-top: 10px;">📅 Total Days Tracked: <span id="totalDays">0</span></p>
+                        <p style="margin-top: 10px;">💯 Average Compliance: <span id="avgCompliance">0</span>%</p>
+                        <p style="margin-top: 10px;">🥗 Clean Eating Days: <span id="cleanDays">0</span></p>
+                    </div>
                 </div>
-                <input type="range" min="1" max="10" value="5" class="slider" id="energy" oninput="updateSlider('energy', this.value)">
-            </div>
 
-            <div class="slider-container">
-                <div class="slider-header">
-                    <span>😊 Overall Mood</span>
-                    <span><strong id="moodValue">5</strong>/10</span>
+                <div class="stats-card">
+                    <h3>💊 Medication Adherence</h3>
+                    <div style="margin-top: 15px;">
+                        <p>This Week: <span id="weekMedAdherence">0</span>%</p>
+                        <p style="margin-top: 10px;">This Month: <span id="monthMedAdherence">0</span>%</p>
+                    </div>
                 </div>
-                <input type="range" min="1" max="10" value="5" class="slider" id="mood" oninput="updateSlider('mood', this.value)">
-            </div>
 
-            <div class="slider-container">
-                <div class="slider-header">
-                    <span>😰 Anxiety (lower is better)</span>
-                    <span><strong id="anxietyValue">5</strong>/10</span>
+                <div class="stats-card">
+                    <h3>🧠 Mood Trends</h3>
+                    <div style="margin-top: 15px;">
+                        <p>😊 Avg Mood: <span id="avgMood">0</span>/10</p>
+                        <p style="margin-top: 10px;">⚡ Avg Energy: <span id="avgEnergy">0</span>/10</p>
+                        <p style="margin-top: 10px;">🎯 Avg Focus: <span id="avgFocus">0</span>/10</p>
+                    </div>
                 </div>
-                <input type="range" min="1" max="10" value="5" class="slider" id="anxiety" oninput="updateSlider('anxiety', this.value)">
             </div>
+        </div>
 
-            <div class="slider-container">
-                <div class="slider-header">
-                    <span>🚀 Motivation</span>
-                    <span><strong id="motivationValue">5</strong>/10</span>
+        <!-- Settings Page -->
+        <div id="settingsPage" class="page" style="display: none;">
+            <div class="settings-container">
+                <h1 style="text-align: center; margin-bottom: 30px;">⚙️ Settings</h1>
+                
+                <div class="settings-section">
+                    <h3>🔔 Reminders</h3>
+                    <div class="settings-item">
+                        <span>Morning Medications</span>
+                        <div class="toggle-switch" onclick="toggleSetting(this, 'morningReminder')"></div>
+                    </div>
+                    <div class="settings-item">
+                        <span>Evening Medications</span>
+                        <div class="toggle-switch" onclick="toggleSetting(this, 'eveningReminder')"></div>
+                    </div>
+                    <div class="settings-item">
+                        <span>Daily Check-in</span>
+                        <div class="toggle-switch" onclick="toggleSetting(this, 'dailyReminder')"></div>
+                    </div>
                 </div>
-                <input type="range" min="1" max="10" value="5" class="slider" id="motivation" oninput="updateSlider('motivation', this.value)">
-            </div>
 
-            <div class="input-group">
-                <label>💭 Daily Notes</label>
-                <textarea id="dailyNotes" placeholder="How are you feeling? Any observations?" rows="4" onchange="saveData()"></textarea>
+                <div class="settings-section">
+                    <h3>🎯 Goals</h3>
+                    <div class="settings-item">
+                        <span>Medication Target</span>
+                        <select onchange="saveSetting('medTarget', this.value)" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 5px; border-radius: 5px;">
+                            <option value="80">80%</option>
+                            <option value="90">90%</option>
+                            <option value="100">100%</option>
+                        </select>
+                    </div>
+                    <div class="settings-item">
+                        <span>Water Goal (glasses)</span>
+                        <select onchange="saveSetting('waterGoal', this.value)" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 5px; border-radius: 5px;">
+                            <option value="6">6</option>
+                            <option value="8">8</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>💾 Data Management</h3>
+                    <button class="export-btn" onclick="exportData()">📥 Export Data</button>
+                    <button class="export-btn" style="background: linear-gradient(135deg, #E74C3C, #C0392B); margin-top: 10px;" onclick="confirmClearData()">🗑️ Clear All Data</button>
+                </div>
+
+                <div class="settings-section">
+                    <h3>ℹ️ About</h3>
+                    <p style="opacity: 0.7; font-size: 14px;">Health Tracker v1.0</p>
+                    <p style="opacity: 0.7; font-size: 14px; margin-top: 5px;">Track your medications, supplements, and wellness journey</p>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Bottom Navigation -->
     <div class="bottom-nav">
-        <button onclick="alert('Today view active')" class="active">🏠</button>
-        <button onclick="alert('Progress coming soon')">📊</button>
-        <button onclick="alert('Settings coming soon')">⚙️</button>
+        <button onclick="showPage('mainPage')" class="active" id="navHome">🏠</button>
+        <button onclick="showPage('statsPage')" id="navStats">📊</button>
+        <button onclick="showPage('settingsPage')" id="navSettings">⚙️</button>
     </div>
 
     <script>
         // Global variables
         let currentDate = new Date().toISOString().split('T')[0];
         let healthData = JSON.parse(localStorage.getItem('healthTrackerData') || '{}');
+        let settings = JSON.parse(localStorage.getItem('healthTrackerSettings') || '{}');
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             initializeDay();
             updateDisplay();
             updateDateDisplay();
+            calculateStreak();
         });
 
         function initializeDay() {
@@ -746,6 +963,7 @@
 
         function saveData() {
             localStorage.setItem('healthTrackerData', JSON.stringify(healthData));
+            calculateStreak();
         }
 
         function updateDisplay() {
@@ -925,29 +1143,65 @@
             
             document.getElementById('medStats').textContent = `${medCount}/11`;
             document.getElementById('suppStats').textContent = `${suppCount}/8`;
+        }
 
-            // Calculate streak
+        function calculateStreak() {
             let streak = 0;
             const dates = Object.keys(healthData).sort().reverse();
-            for (const date of dates) {
+            const today = new Date();
+            
+            for (let i = 0; i < dates.length; i++) {
+                const date = dates[i];
                 const entry = healthData[date];
-                const medCount = Object.values(entry.medications || {}).filter(Boolean).length;
-                const suppCount = Object.values(entry.supplements || {}).filter(Boolean).length;
-                if (medCount >= 8 && suppCount >= 4) {
-                    streak++;
+                
+                // Check if it's a clean eating day
+                if (entry.nutrition && entry.nutrition.cleanEating === true) {
+                    // Check if dates are consecutive
+                    if (i === 0) {
+                        // First date in the list
+                        const entryDate = new Date(date);
+                        const diffDays = Math.floor((today - entryDate) / (1000 * 60 * 60 * 24));
+                        
+                        if (diffDays <= 1) {
+                            streak++;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        // Check if previous date is consecutive
+                        const currentDate = new Date(date);
+                        const prevDate = new Date(dates[i - 1]);
+                        const diffDays = Math.floor((prevDate - currentDate) / (1000 * 60 * 60 * 24));
+                        
+                        if (diffDays === 1) {
+                            streak++;
+                        } else {
+                            break;
+                        }
+                    }
                 } else {
-                    break;
+                    // Not a clean eating day, break the streak
+                    if (i === 0) {
+                        // If today is not a clean eating day, streak is 0
+                        break;
+                    }
                 }
             }
+            
             document.getElementById('streak').textContent = streak;
+            const statsStreak = document.getElementById('statsStreak');
+            if (statsStreak) {
+                statsStreak.textContent = streak;
+            }
         }
 
         function updateDateDisplay() {
-            const date = new Date(currentDate);
+            const date = new Date(currentDate + 'T12:00:00');
             document.getElementById('currentDate').textContent = date.toLocaleDateString('en-US', { 
                 weekday: 'short', 
                 month: 'short', 
-                day: 'numeric' 
+                day: 'numeric',
+                timeZone: 'UTC'
             });
             
             const today = new Date().toISOString().split('T')[0];
@@ -978,6 +1232,179 @@
             });
             
             event.target.classList.add('active');
+        }
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).style.display = 'block';
+            
+            // Update nav buttons
+            document.querySelectorAll('.bottom-nav button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            if (pageId === 'mainPage') {
+                document.getElementById('navHome').classList.add('active');
+            } else if (pageId === 'statsPage') {
+                document.getElementById('navStats').classList.add('active');
+                updateStatsPage();
+            } else if (pageId === 'settingsPage') {
+                document.getElementById('navSettings').classList.add('active');
+            }
+        }
+
+        function updateStatsPage() {
+            // Calculate statistics
+            const dates = Object.keys(healthData);
+            let totalDays = dates.length;
+            let cleanEatingDays = 0;
+            let totalCompliance = 0;
+            let totalMood = 0;
+            let totalEnergy = 0;
+            let totalFocus = 0;
+            let daysWithMoodData = 0;
+            
+            // Get last 7 days for chart
+            const last7Days = [];
+            const today = new Date();
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                last7Days.push(date.toISOString().split('T')[0]);
+            }
+            
+            // Calculate stats
+            dates.forEach(date => {
+                const entry = healthData[date];
+                
+                // Clean eating days
+                if (entry.nutrition && entry.nutrition.cleanEating === true) {
+                    cleanEatingDays++;
+                }
+                
+                // Compliance
+                const medCount = Object.values(entry.medications || {}).filter(Boolean).length;
+                const suppCount = Object.values(entry.supplements || {}).filter(Boolean).length;
+                const compliance = ((medCount / 11) + (suppCount / 8)) / 2 * 100;
+                totalCompliance += compliance;
+                
+                // Mood data
+                if (entry.mood) {
+                    if (entry.mood.mood) {
+                        totalMood += entry.mood.mood;
+                        daysWithMoodData++;
+                    }
+                    if (entry.mood.energy) {
+                        totalEnergy += entry.mood.energy;
+                    }
+                    if (entry.mood.focus) {
+                        totalFocus += entry.mood.focus;
+                    }
+                }
+            });
+            
+            // Update stats display
+            document.getElementById('totalDays').textContent = totalDays;
+            document.getElementById('cleanDays').textContent = cleanEatingDays;
+            document.getElementById('avgCompliance').textContent = totalDays > 0 ? Math.round(totalCompliance / totalDays) : 0;
+            document.getElementById('avgMood').textContent = daysWithMoodData > 0 ? (totalMood / daysWithMoodData).toFixed(1) : 0;
+            document.getElementById('avgEnergy').textContent = daysWithMoodData > 0 ? (totalEnergy / daysWithMoodData).toFixed(1) : 0;
+            document.getElementById('avgFocus').textContent = daysWithMoodData > 0 ? (totalFocus / daysWithMoodData).toFixed(1) : 0;
+            
+            // Create week chart
+            const chartContainer = document.getElementById('weekChart');
+            chartContainer.innerHTML = '';
+            
+            last7Days.forEach((date, index) => {
+                const entry = healthData[date] || {};
+                const medCount = Object.values(entry.medications || {}).filter(Boolean).length;
+                const suppCount = Object.values(entry.supplements || {}).filter(Boolean).length;
+                const percentage = entry.medications ? ((medCount / 11) + (suppCount / 8)) / 2 * 100 : 0;
+                
+                const bar = document.createElement('div');
+                bar.className = 'chart-bar';
+                bar.style.height = `${Math.max(10, percentage)}%`;
+                
+                const label = document.createElement('div');
+                label.className = 'chart-label';
+                const d = new Date(date);
+                label.textContent = d.toLocaleDateString('en-US', { weekday: 'short' }).slice(0, 2);
+                bar.appendChild(label);
+                
+                chartContainer.appendChild(bar);
+            });
+            
+            // Calculate adherence rates
+            let weekMeds = 0;
+            let weekDays = 0;
+            let monthMeds = 0;
+            let monthDays = 0;
+            
+            const now = new Date();
+            const weekAgo = new Date(now);
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            const monthAgo = new Date(now);
+            monthAgo.setMonth(monthAgo.getMonth() - 1);
+            
+            Object.entries(healthData).forEach(([date, entry]) => {
+                const dateObj = new Date(date);
+                const medCount = Object.values(entry.medications || {}).filter(Boolean).length;
+                
+                if (dateObj >= weekAgo) {
+                    weekMeds += medCount;
+                    weekDays++;
+                }
+                
+                if (dateObj >= monthAgo) {
+                    monthMeds += medCount;
+                    monthDays++;
+                }
+            });
+            
+            document.getElementById('weekMedAdherence').textContent = weekDays > 0 ? Math.round((weekMeds / (weekDays * 11)) * 100) : 0;
+            document.getElementById('monthMedAdherence').textContent = monthDays > 0 ? Math.round((monthMeds / (monthDays * 11)) * 100) : 0;
+        }
+
+        function toggleSetting(element, setting) {
+            element.classList.toggle('active');
+            settings[setting] = element.classList.contains('active');
+            localStorage.setItem('healthTrackerSettings', JSON.stringify(settings));
+        }
+
+        function saveSetting(key, value) {
+            settings[key] = value;
+            localStorage.setItem('healthTrackerSettings', JSON.stringify(settings));
+        }
+
+        function exportData() {
+            const dataStr = JSON.stringify(healthData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `health-tracker-data-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            alert('Data exported successfully!');
+        }
+
+        function confirmClearData() {
+            if (confirm('Are you sure you want to clear all data? This cannot be undone!')) {
+                if (confirm('This will delete ALL your tracking history. Are you absolutely sure?')) {
+                    localStorage.removeItem('healthTrackerData');
+                    localStorage.removeItem('healthTrackerSettings');
+                    healthData = {};
+                    settings = {};
+                    location.reload();
+                }
+            }
         }
 
         // Save notes when textarea changes
